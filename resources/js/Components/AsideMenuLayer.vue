@@ -1,5 +1,5 @@
 <script setup>
-import { Inertia } from '@inertiajs/inertia'
+import { router } from '@inertiajs/vue3'
 import { mdiLogout, mdiClose } from '@mdi/js'
 import { computed } from 'vue'
 import { useLayoutStore } from '@/Stores/layout.js'
@@ -10,8 +10,8 @@ import BaseIcon from '@/Components/BaseIcon.vue'
 
 defineProps({
   menu: {
-    type: Array,
-    default: () => []
+    type: Object,
+    default: () => {}
   }
 })
 
@@ -22,13 +22,14 @@ const layoutStore = useLayoutStore()
 const styleStore = useStyleStore()
 
 const logoutItem = computed(() => ({
-  label: 'Logout',
+  name: 'Logout',
   icon: mdiLogout,
-  color: 'info'
+  color: 'info',
+  link: '#'
 }))
 
 const logoutItemClick = () => {
-  Inertia.post(route('logout'))
+  router.post(route('logout'))
 }
 
 const menuClick = (event, item) => {
